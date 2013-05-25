@@ -4,8 +4,8 @@
 #
 #     include pow
 class pow {
-  package { "pow":
-    ensure   => "latest",
-    provider => "homebrew"
+  package { 'pow':
+    ensure   => 'latest',
+    provider => 'homebrew'
   }
 }
