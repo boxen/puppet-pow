@@ -150,6 +150,32 @@ describe 'pow' do
       should contain_file("/opt/boxen/config/nginx/sites/pow.conf").with_content(/server_name \*.dev \*.pow \*.test;/)
       end
     end
+
+    context 'and a missing custom nginx template is specified' do
+      let(:params) do
+        {
+          :nginx_proxy => 'something/that/does/not/exist/pow.conf.erb'
+        }
+      end
+
+      it do
+        expect {
+          should contain_file("/opt/boxen/config/nginx/sites/pow.conf")
+        }.to raise_error(Puppet::Error, /could not find template/i)
+      end
+    end
+
+    context 'and a custom nginx template is specified' do
+      let(:params) do
+        {
+          :nginx_proxy => 'pow/nginx/custom/example.pow.conf.erb'
+        }
+      end
+
+      it do
+        should contain_file("/opt/boxen/config/nginx/sites/pow.conf").with_content(/proxy_set_header X-Custom-Header/)
+      end
+    end
   end
 
   context 'when nginx proxy disabled' do
