@@ -2,9 +2,9 @@ require 'formula'
 
 class Pow < Formula
   homepage 'http://pow.cx/'
-  url 'http://get.pow.cx/versions/0.4.3.tar.gz'
-  sha1 '7e1faf3c33588bc3e73fb3583265e050a48718b0'
-  version '0.4.3-boxen1'
+  url "http://get.pow.cx/versions/0.5.0.tar.gz"
+  sha1 "ef44f886a444340b91fb28e2fab3ce5471837a08"
+  version '0.5.0-boxen1'
 
   depends_on 'node'
 

@@ -53,7 +53,7 @@ class pow(
     }
 
     package { 'boxen/brews/pow':
-      ensure   => '0.4.3-boxen1',
+      ensure   => '0.5.0-boxen1',
       provider => 'homebrew',
       require  => File["${home}/.powconfig"]
     }
