@@ -24,12 +24,11 @@ describe 'pow' do
 
     should contain_service('dev.pow.powd').with({
       :ensure  => 'running',
-      :require => 'Package[pow]'
+      :require => 'Package[boxen/brews/pow]'
     })
 
-    should contain_package('pow').with({
+    should contain_package('boxen/brews/pow').with({
       :provider => 'homebrew',
-      :ensure => 'latest',
       :require => 'File[/Users/github_user/.powconfig]'
     })
 
@@ -173,7 +172,7 @@ describe 'pow' do
 
       should contain_service('dev.pow.firewall').with({
         :ensure  => 'running',
-        :require => 'Package[pow]'
+        :require => 'Package[boxen/brews/pow]'
       })
     end
   end

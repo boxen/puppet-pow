@@ -48,8 +48,12 @@ class pow(
     }
 
     # Install pow with brew
-    package { 'pow':
-      ensure   => 'latest',
+    homebrew::formula { 'pow':
+      before => Package['boxen/brews/pow'],
+    }
+
+    package { 'boxen/brews/pow':
+      ensure   => '0.5.0-boxen1',
       provider => 'homebrew',
       require  => File["${home}/.powconfig"]
     }
@@ -95,14 +99,14 @@ class pow(
       # Start the pow firewall service
       service { 'dev.pow.firewall':
         ensure  => running,
-        require => Package['pow']
+        require => Package['boxen/brews/pow']
       }
     }
 
     # Start the pow service
     service { 'dev.pow.powd':
       ensure  => running,
-      require => Package['pow']
+      require => Package['boxen/brews/pow']
     }
 
     # Add the dns resolver for each domain
