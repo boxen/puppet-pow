@@ -79,9 +79,14 @@ class pow(
         include nginx::config
         include nginx
 
+        $nginx_templ = $nginx_proxy ? {
+          true    => 'pow/nginx/pow.conf.erb',
+          default => $nginx_proxy,
+        }
+
         # Create the site with a proxy from port 80 to $http_port
         file { "${nginx::config::sitesdir}/pow.conf":
-            content => template('pow/nginx/pow.conf.erb'),
+            content => template($nginx_templ),
             require => File[$nginx::config::sitesdir],
             notify  => Service['dev.nginx'],
         }

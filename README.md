@@ -23,11 +23,15 @@ class {'pow':
       ext_domains => undef,     # uses pow default, ""
       timeout => undef,         # uses pow default, 900
       workers => undef,         # uses pow default, 2
-      nginx_proxy => true
+      nginx_proxy => true       # or nginx_proxy => 'path/to/custom/nginx/pow.conf.erb' to specify a custom template
     }
 ```
 
-The pow module installs pow with a custom `destination port` and use `nginx` to proxy custom domains to pow, instead of a firewall rule. You can change this behaviour with the `nginx_proxy` parameter
+The pow module installs pow with a custom `destination port` and use `nginx` to 
+proxy custom domains to pow, instead of a firewall rule. You can change this 
+behaviour with the `nginx_proxy` parameter, using the default nginx configuration 
+or specifying a path to a customized pow nginx configuration. In most cases 
+you will simply specify `nginx_proxy => true`.
 
 It also use the `.pow` TLD that resolve to `127.0.0.1` to serve your pow projects
 
