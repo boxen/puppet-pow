@@ -6,7 +6,8 @@ describe 'pow' do
   let(:facts) do
     {
       :boxen_home => boxenhome,
-      :boxen_user => boxenuser
+      :boxen_user => boxenuser,
+      :macosx_productversion => '10.10',
     }
   end
 

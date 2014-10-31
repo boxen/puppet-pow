@@ -93,6 +93,11 @@ class pow(
     }
     # Create a firewall rule to redirect from $dst_port to $http_port
     else{
+      $firewall_update_cmd =  $::macosx_productversion ? {
+        '10.10'         => "echo 'rdr pass proto tcp from any to any port {${dst_port},${http_port}} -> 127.0.0.1 port ${http_port}' | pfctl -a 'com.apple/250.PowFirewall' -Ef -",
+        /10\.[7-9]/     => "ipfw add fwd 127.0.0.1,${http_port} tcp from any to me dst-port ${dst_port} in",
+      }
+
       # Install our custom plist for pow firewall.
       file { '/Library/LaunchDaemons/dev.pow.firewall.plist':
         content => template('pow/dev.pow.firewall.plist.erb'),

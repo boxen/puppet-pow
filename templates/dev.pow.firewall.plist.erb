@@ -2,17 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Label</key>
-	<string>dev.pow.firewall</string>
-	<key>ProgramArguments</key>
-	<array>
-		<string>sh</string>
-		<string>-c</string>
-		<string>ipfw add fwd 127.0.0.1,<%= @http_port%> tcp from any to me dst-port <%= @dst_port%> in &amp;&amp; sysctl -w net.inet.ip.forwarding=1</string>
-	</array>
-	<key>RunAtLoad</key>
-	<true/>
-	<key>UserName</key>
-	<string>root</string>
+  <key>Label</key>
+  <string>dev.pow.firewall</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>sh</string>
+    <string>-c</string>
+    <string>
+      sysctl -w net.inet.ip.forwarding=1;
+      <%= @firewall_update_cmd %>
+    </string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>UserName</key>
+  <string>root</string>
 </dict>
 </plist>
