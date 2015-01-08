@@ -40,7 +40,7 @@ If you want to request your applications from a mobile device you can enable [xi
 
 ```puppet
 class {'pow':
-      domains => 'pow, xip.io',
+      ext_domains => 'xip.io',
     }
 ```
 
