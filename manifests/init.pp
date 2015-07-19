@@ -28,6 +28,10 @@ class pow(
     # Pow executable
     $pow_bin = "${homebrew::config::installdir}/bin/pow"
 
+    $pow_domains = strip(split($domains, ','))
+    $pow_ext_domains = strip(split($ext_domains, ','))
+    $all_pow_domains = union($pow_domains, $pow_ext_domains)
+
     $home = "/Users/${::boxen_user}"
     file { "${home}/.powconfig":
       ensure  => present,
@@ -84,6 +88,7 @@ class pow(
           default => $nginx_proxy,
         }
 
+        $all_pow_wildcard_domains = prefix($all_pow_domains, '*.')
         # Create the site with a proxy from port 80 to $http_port
         file { "${nginx::config::sitesdir}/pow.conf":
             content => template($nginx_templ),
@@ -115,7 +120,6 @@ class pow(
     }
 
     # Add the dns resolver for each domain
-    $pow_domains = split(strip($domains), ',')
     $pow_domain_resolvers = prefix($pow_domains, '/etc/resolver/')
 
     file { $pow_domain_resolvers:

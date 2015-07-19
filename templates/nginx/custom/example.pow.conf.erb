@@ -1,7 +1,7 @@
 # Required nginx configuration, customized
 server {
   listen  80;
-  server_name <%= @domains.split(',').map{|x| "*.#{x.strip}"}.join(" ") %>;
+  server_name <%= @all_pow_wildcard_domains.join(" ") %>;
   location / {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
