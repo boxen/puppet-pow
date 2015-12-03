@@ -124,8 +124,9 @@ class pow(
       require => Package['boxen/brews/pow']
     }
 
-    # Add the dns resolver for each domain
-    $pow_domain_resolvers = prefix($pow_domains, '/etc/resolver/')
+    # Add the dns resolver for each domain except dev because dnsmasq did
+    $domains_without_dev  = delete($pow_domains, 'dev')
+    $pow_domain_resolvers = prefix($domains_without_dev, '/etc/resolver/')
 
     file { $pow_domain_resolvers:
       content => template('pow/resolver.erb'),
